@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css?family=Courgette');
+
+body {
+    font-family: "Courgette";
+    background-image: url("../images/weather.png");
+}
+
+.container {
+    padding: 0px;
+}
+
+.row {
+    margin-bottom: 20px;
+}
+
+.jumbotron {
+    background-color: aliceblue;
+    background: url("../images/camp-1.png");
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+.jumbotron h1 {
+    background: rgb(255, 255, 255, 0.3);
+    border: 2px solid black;
+    width: 420px;
+    margin: 0 auto;
+}
+
+form,
+.comments, .forecast, .clothingRecommendations, .card, input[placeholder] {
+    background: rgba(145, 186, 212, 0.2);
+    border: 2px solid rgb(138, 191, 235);
+    border-radius: 10px;
+}
+
+form, .info, .forecast {
+    padding: 15px;
+}
+
+label {
+    font-size: 25px;
+}
+
+input[placeholder] {
+    letter-spacing: 2.5px;
+    padding-left: 30px;  
+    background: rgb(215, 242, 255);
+}
+
+.comments {
+    padding: 7px;
+}
+
+#submit-btn {
+    margin-top: 15px;
+}
