@@ -32,7 +32,7 @@ $(document).ready(function () {
             var locationStr = response.data[j].latLong;
 
             if (!!locationStr) {
-                
+
                 var newOption = $("<option>");
                 var newOption = $("<option>").attr("data-location", locationStr);
                 newOption.attr("class", "campsites");
@@ -46,7 +46,9 @@ $(document).ready(function () {
         //first i build query string
 
         var url = "https://developer.nps.gov/api/v1/campgrounds?"
-        var queryParams = {"api_key": "KPU9fBN1jvn0aF6OMVUOJ3fFcxjhAPpNuBCQhcrO"};
+        var queryParams = {
+            "api_key": "KPU9fBN1jvn0aF6OMVUOJ3fFcxjhAPpNuBCQhcrO"
+        };
         queryParams.q = $("#name").val();
         var queryURL = url + $.param(queryParams);
 
@@ -81,6 +83,7 @@ $(document).ready(function () {
         }).then(function (response) {
             console.log(response)
             forecastLoop(response);
+            recommendations(response);
         });
     }
 
@@ -106,36 +109,67 @@ $(document).ready(function () {
         }
     }
 
+    function recommendations(response) {
 
-    $("#heading").text("DOM manipulation")
+        $(".clothingRecommendations").empty();
 
-    $("#submit-btn").on("click", function (event) {
-        event.preventDefault();
+        var temp = [];
+        var weather = [];
+        var wind = [];
+        for (i = 0; i < response.list.length; i = i + 8) {
+            var days = response.list[i];
 
-        $(".forecast").empty();
+            temp.push(Math.round(days.main.temp));
+            weather.push(days.weather[0].main);
+            wind.push(days.wind.speed);
 
-        parksAjax()
-    })
+        }
+        console.log(temp);
+        console.log(weather);
+        console.log(wind);
 
-
-    $(document).on("click", ".campsites", function () {
-
-        // this could be its own function
-        var locationStr = $(this).attr("data-location");
-        console.log(locationStr)
-
-        var cleanLatLong = locationStr.slice(1, -1).split(',');
-        console.log(cleanLatLong)
-        let latitude = cleanLatLong[0].substr(4);
-        let longitude = cleanLatLong[1].substr(5);
-
-        let location = {
-            lat: latitude,
-            long: longitude
+        for (i = 0; i < temp.length; i++) {
+            if (temp[i] < 30) {
+                $(".clothingRecommendations").html(
+                    "It's going to be chilly. Pack a jacket and a heavy sleeping bag!")
+            }
         }
 
-        forecastAjax(location)
-    })
+    }
+
+
+
+
+
+$("#heading").text("DOM manipulation")
+
+$("#submit-btn").on("click", function (event) {
+    event.preventDefault();
+
+    $(".forecast").empty();
+
+    parksAjax()
+})
+
+
+$(document).on("click", ".campsites", function () {
+
+    // this could be its own function
+    var locationStr = $(this).attr("data-location");
+    console.log(locationStr)
+
+    var cleanLatLong = locationStr.slice(1, -1).split(',');
+    console.log(cleanLatLong)
+    let latitude = cleanLatLong[0].substr(4);
+    let longitude = cleanLatLong[1].substr(5);
+
+    let location = {
+        lat: latitude,
+        long: longitude
+    }
+
+    forecastAjax(location)
+})
 
 });
 
