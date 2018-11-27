@@ -42,7 +42,7 @@ $(document).ready(function () {
             } else {
                 var parkCode = response.data[j].parkCode;
                 console.log(parkCode)
-                var parkLocationStr = getParkLocation(parkCode)////////////////////////////////////////////////////////////not returning
+                var parkLocationStr = getParkLocation(parkCode)////////////////////////////Oh my gosh//////////////////////not returning
                 console.log(parkLocationStr)
                 var newOption = $("<option>");
                 var newOption = $("<option>").attr("data-location", parkLocationStr);
