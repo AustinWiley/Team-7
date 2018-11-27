@@ -35,16 +35,53 @@ $(document).ready(function () {
 
                 var newOption = $("<option>");
                 var newOption = $("<option>").attr("data-location", locationStr);
+                newOption.attr("data-locationValue", true);
                 newOption.attr("class", "campsites");
-                newOption.text("Name: " + response.data[j].name);
+                newOption.text(response.data[j].name);
+                $(".info").append(newOption);
+            } else {
+                var parkCode = response.data[j].parkCode;
+                console.log(parkCode)
+                var parkLocationStr = getParkLocation(parkCode)////////////////////////////////////////////////////////////not returning
+                console.log(parkLocationStr)
+                var newOption = $("<option>");
+                var newOption = $("<option>").attr("data-location", parkLocationStr);
+                newOption.attr("data-locationValue", false);
+                newOption.attr("class", "campsites");
+                newOption.text(response.data[j].name);
                 $(".info").append(newOption);
             }
         }
     }
 
-    function parksAjax() {
-        //first i build query string
 
+    function getParkLocation(parkCode) {
+
+        //ajax call to get park lat and long===================
+        var urlPark = "https://developer.nps.gov/api/v1/parks?"
+        var queryParamsPark = {
+            "api_key": "KPU9fBN1jvn0aF6OMVUOJ3fFcxjhAPpNuBCQhcrO"
+        };
+        queryParamsPark.parkCode = parkCode;
+        var queryURLPark = urlPark + $.param(queryParamsPark);
+
+        $.ajax({
+            url: queryURLPark,
+            method: "GET"
+        }).then(function (response) {
+            console.log(response.data[0].latLong);
+            parkLocation = response.data[0].latLong;
+        
+        });
+
+        
+
+    }
+
+
+    function parksAjax() {
+
+        //ajax call for campsites===============================
         var url = "https://developer.nps.gov/api/v1/campgrounds?"
         var queryParams = {
             "api_key": "KPU9fBN1jvn0aF6OMVUOJ3fFcxjhAPpNuBCQhcrO"
@@ -62,17 +99,19 @@ $(document).ready(function () {
         });
     }
 
+
     function forecastAjax(location) {
         //first i build query string
+
+        console.log(location)
 
         var url = "https://api.openweathermap.org/data/2.5/forecast?"
         var queryParams = {
             "appid": "25f1d41384ca0a12c21a0c9237a9d2cb"
         };
-        // queryParams.q = $("#name").val();
+
         queryParams.lat = location.lat;
         queryParams.lon = location.long;
-        console.log(queryParams.q);
         queryParams.units = "imperial"
 
         var queryURL = url + $.param(queryParams);
@@ -88,7 +127,7 @@ $(document).ready(function () {
     }
 
     function forecastLoop(response) {
-        $(".forecast").empty();
+        $(".forecast-view").empty();
 
         for (i = 0; i < response.list.length; i = i + 8) {
             console.log(response.list[i]);
@@ -105,7 +144,7 @@ $(document).ready(function () {
                 $("<td>").text(days.weather[0].description),
                 $("<td>").text(days.wind.speed + " mph")
             )
-            $(".forecast").append(newRow);
+            $(".forecast-view").append(newRow);
         }
     }
 
@@ -146,7 +185,7 @@ $("#heading").text("DOM manipulation")
 $("#submit-btn").on("click", function (event) {
     event.preventDefault();
 
-    $(".forecast").empty();
+    $(".forecast-view").empty();
 
     parksAjax()
 })
@@ -156,18 +195,29 @@ $(document).on("click", ".campsites", function () {
 
     // this could be its own function
     var locationStr = $(this).attr("data-location");
+    var locationValue = $(this).attr("data-locationValue")
     console.log(locationStr)
+    console.log(locationValue)
 
     var cleanLatLong = locationStr.slice(1, -1).split(',');
     console.log(cleanLatLong)
-    let latitude = cleanLatLong[0].substr(4);
-    let longitude = cleanLatLong[1].substr(5);
+    
 
-    let location = {
+    if (locationValue === "true") {
+        var latitude = cleanLatLong[0].substr(4);
+        var longitude = cleanLatLong[1].substr(5);
+        console.log("truthiness")
+    } else if (locationValue === "false") {
+        var latitude = cleanLatLong[0].substr(3);
+        var longitude = cleanLatLong[1].substr(6);
+        console.log("falsyness")
+    }
+       
+    var location = {
         lat: latitude,
         long: longitude
     }
-
+console.log(location)
     forecastAjax(location)
 })
 
