@@ -21,7 +21,7 @@ $(document).ready(function () {
     }
 
 
-    function getCampsites(response) {
+    function getCampsites(response, parkLocationStr) {
 
         var parkSelection = $("#name").val();
         $("#park-selected").text("Campsites in " + parkSelection + " National Park");
@@ -40,9 +40,6 @@ $(document).ready(function () {
                 newOption.text(response.data[j].name);
                 $(".info").append(newOption);
             } else {
-                var parkCode = response.data[j].parkCode;
-                console.log(parkCode)
-                var parkLocationStr = getParkLocation(parkCode)////////////////////////////Oh my gosh//////////////////////not returning
                 console.log(parkLocationStr)
                 var newOption = $("<option>");
                 var newOption = $("<option>").attr("data-location", parkLocationStr);
@@ -55,14 +52,14 @@ $(document).ready(function () {
     }
 
 
-    function getParkLocation(parkCode) {
+    function parksAjax() {
 
         //ajax call to get park lat and long===================
         var urlPark = "https://developer.nps.gov/api/v1/parks?"
         var queryParamsPark = {
             "api_key": "KPU9fBN1jvn0aF6OMVUOJ3fFcxjhAPpNuBCQhcrO"
         };
-        queryParamsPark.parkCode = parkCode;
+        queryParamsPark.q = $("#name").val();;
         var queryURLPark = urlPark + $.param(queryParamsPark);
 
         $.ajax({
@@ -70,33 +67,27 @@ $(document).ready(function () {
             method: "GET"
         }).then(function (response) {
             console.log(response.data[0].latLong);
-            parkLocation = response.data[0].latLong;
-        
+            parkLocationStr = response.data[0].latLong;
+
+            //ajax call for campsites===============================
+            var url = "https://developer.nps.gov/api/v1/campgrounds?"
+            var queryParams = {
+                "api_key": "KPU9fBN1jvn0aF6OMVUOJ3fFcxjhAPpNuBCQhcrO"
+            };
+            queryParams.q = $("#name").val();
+            var queryURL = url + $.param(queryParams);
+
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).then(function (response) {
+
+                console.log(response)
+                getCampsites(response, parkLocationStr);
+            });
+
         });
 
-        
-
-    }
-
-
-    function parksAjax() {
-
-        //ajax call for campsites===============================
-        var url = "https://developer.nps.gov/api/v1/campgrounds?"
-        var queryParams = {
-            "api_key": "KPU9fBN1jvn0aF6OMVUOJ3fFcxjhAPpNuBCQhcrO"
-        };
-        queryParams.q = $("#name").val();
-        var queryURL = url + $.param(queryParams);
-
-        $.ajax({
-            url: queryURL,
-            method: "GET"
-        }).then(function (response) {
-
-            console.log(response)
-            getCampsites(response);
-        });
     }
 
 
@@ -133,11 +124,7 @@ $(document).ready(function () {
             console.log(response.list[i]);
             var days = response.list[i]
 
-            // tempF = ((days.main.temp - 273.15)*1.8)+32
-
             var newRow = $("<tr>").append(
-
-                // $("<td>").text(moment(days.dt_txt).day()),
                 $("<td>").text(days.dt_txt),
                 $("<td>").text(Math.round(days.main.temp) + "F"),
                 $("<td>").text(days.weather[0].main),
@@ -147,6 +134,7 @@ $(document).ready(function () {
             $(".forecast-view").append(newRow);
         }
     }
+
 
     function recommendations(response) {
 
@@ -177,49 +165,46 @@ $(document).ready(function () {
     }
 
 
+    $("#heading").text("DOM manipulation")
+
+    $("#submit-btn").on("click", function (event) {
+        event.preventDefault();
+
+        $(".forecast-view").empty();
+
+        parksAjax()
+    })
 
 
+    $(document).on("click", ".campsites", function () {
 
-$("#heading").text("DOM manipulation")
+        // this could be its own function
+        var locationStr = $(this).attr("data-location");
+        var locationValue = $(this).attr("data-locationValue")
+        console.log(locationStr)
+        console.log(locationValue)
 
-$("#submit-btn").on("click", function (event) {
-    event.preventDefault();
-
-    $(".forecast-view").empty();
-
-    parksAjax()
-})
+        var cleanLatLong = locationStr.slice(1, -1).split(',');
+        console.log(cleanLatLong)
 
 
-$(document).on("click", ".campsites", function () {
+        if (locationValue === "true") {
+            var latitude = cleanLatLong[0].substr(4);
+            var longitude = cleanLatLong[1].substr(5);
+            console.log("truthiness")
+        } else if (locationValue === "false") {
+            var latitude = cleanLatLong[0].substr(3);
+            var longitude = cleanLatLong[1].substr(6);
+            console.log("falsyness")
+        }
 
-    // this could be its own function
-    var locationStr = $(this).attr("data-location");
-    var locationValue = $(this).attr("data-locationValue")
-    console.log(locationStr)
-    console.log(locationValue)
-
-    var cleanLatLong = locationStr.slice(1, -1).split(',');
-    console.log(cleanLatLong)
-    
-
-    if (locationValue === "true") {
-        var latitude = cleanLatLong[0].substr(4);
-        var longitude = cleanLatLong[1].substr(5);
-        console.log("truthiness")
-    } else if (locationValue === "false") {
-        var latitude = cleanLatLong[0].substr(3);
-        var longitude = cleanLatLong[1].substr(6);
-        console.log("falsyness")
-    }
-       
-    var location = {
-        lat: latitude,
-        long: longitude
-    }
-console.log(location)
-    forecastAjax(location)
-})
+        var location = {
+            lat: latitude,
+            long: longitude
+        }
+        console.log(location)
+        forecastAjax(location)
+    })
 
 });
 
