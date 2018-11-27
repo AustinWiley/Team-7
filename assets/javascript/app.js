@@ -165,8 +165,6 @@ $(document).ready(function () {
     }
 
 
-    $("#heading").text("DOM manipulation")
-
     $("#submit-btn").on("click", function (event) {
         event.preventDefault();
 
