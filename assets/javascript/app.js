@@ -52,6 +52,15 @@ $(document).ready(function () {
     }
 
 
+    function dayOfWeek(timeStamp) {
+    
+        var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        var dayNum = new Date(timeStamp * 1000).getDay();
+        var result = days[dayNum];;
+        return result
+    }
+
+
     function parksAjax() {
 
         //ajax call to get park lat and long===================
@@ -87,12 +96,10 @@ $(document).ready(function () {
             });
 
         });
-
     }
 
 
     function forecastAjax(location) {
-        //first i build query string
 
         console.log(location)
 
@@ -117,19 +124,21 @@ $(document).ready(function () {
         });
     }
 
+
     function forecastLoop(response) {
         $(".forecast-view").empty();
 
         for (i = 0; i < response.list.length; i = i + 8) {
             console.log(response.list[i]);
-            var days = response.list[i]
+            var days = response.list[i];
+            var weekDay = dayOfWeek(days.dt);
 
             var newRow = $("<tr>").append(
-                $("<td>").text(days.dt_txt),
+                $("<td>").text(weekDay),
                 $("<td>").text(Math.round(days.main.temp) + "F"),
                 $("<td>").text(days.weather[0].main),
-                $("<td>").text(days.weather[0].description),
-                $("<td>").text(days.wind.speed + " mph")
+                // $("<td>").text(days.weather[0].description),
+                $("<td>").text(days.wind.speed + " mph winds")
             )
             $(".forecast-view").append(newRow);
         }
