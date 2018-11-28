@@ -163,10 +163,72 @@ $(document).ready(function () {
         console.log(wind);
 
         for (i = 0; i < temp.length; i++) {
-            if (temp[i] < 30) {
+            //clear and calm
+            if (temp[i] <= 0) {
                 $(".clothingRecommendations").html(
-                    "It's going to be chilly. Pack a jacket and a heavy sleeping bag!")
+                    "<h5>Clothing Recommendations</h5><p>Camping not recommended at sub-zero temperatures!</p>")
             }
+            if (temp[i] > 0 || temp[i] < 30 || wind[i] <= 5 || weather === "Clear") {
+                $(".clothingRecommendations").html(
+                    "<h5>Clothing Recommendations</h5><ul><li>Heavy Jacket</li><li>Cold Weather Sleeping Bag</li><li>Wool Socks</li><li>Wool Hat or Earmuffs</li><li>Space Blanket</li><li>Gloves<li>Sunscreen</li></ul>")
+            }
+            if (temp[i] >= 30 || temp[i] < 60 || wind[i] <= 5 || weather === "Clear") {
+                $(".clothingRecommendations").html(
+                    "<h5>Clothing Recommendations</h5><ul><li>Light Jacket</li><li>Cold Weather Sleeping Bag</li><li>Sleeping Socks</li><li>Sunscreen</li><li>Long Sleeve Shirts</li></ul>")
+            }
+            if (temp[i] >= 60 || temp[i] < 85 || wind[i] <= 5 || weather === "Clear") {
+                $(".clothingRecommendations").html(
+                    "<h5>Clothing Recommendations</h5><ul><li>Long Sleeve Shirts</li><li>T-shirts</li><li>Sleeping Bag</li><li>Sunscreen</li><li>Shorts or Pants</li></ul>")
+            }
+            if (temp[i] >= 85 || wind[i] <= 5 || weather === "Clear") {
+                $(".clothingRecommendations").html(
+                    "<h5>Clothing Recommendations</h5><ul><li>UV Blocking T-shirts</li><li>Light Sleeping Bag or Hammock</li><li>Sunscreen</li><li>Shorts</li><li>Plenty of Water</li><li>Battery-powered Fan</li></ul>")
+            }
+            //clear and windy
+            if (temp[i] > 0 || temp[i] < 30 || wind[i] > 5 || weather === "Clear") {
+                $(".clothingRecommendations").html(
+                    "<h5>Clothing Recommendations</h5><ul><li>Heavy Jacket</li><li>Wind Breaker</li><li>Cold Weather Sleeping Bag</li><li>Wool Socks</li><li>Wool Hat or Earmuffs</li><li>Balaclava</li><li>Space Blanket</li><li>Gloves<li>Sunscreen</li></ul>")
+            }
+            if (temp[i] >= 30 || temp[i] < 60 || wind[i] > 5 || weather === "Clear") {
+                $(".clothingRecommendations").html(
+                    "<h5>Clothing Recommendations</h5><ul><li>Light Jacket</li><li>Wind Breaker</li><li>Cold Weather Sleeping Bag</li><li>Sleeping Socks</li><li>Sunscreen</li><li>Long Sleeve Shirts</li></ul>")
+            }
+            if (temp[i] >= 60 || temp[i] < 85 || wind[i] > 5 || weather === "Clear") {
+                $(".clothingRecommendations").html(
+                    "<h5>Clothing Recommendations</h5><ul><li>Long Sleeve Shirts</li><li>T-shirts</li><li>Sleeping Bag</li><li>Wind Breaker</li><li>Sunscreen</li><li>Shorts or Pants</li></ul>")
+            }
+            if (temp[i] >= 85 || wind[i] > 5 || weather === "Clear") {
+                $(".clothingRecommendations").html(
+                    "<h5>Clothing Recommendations</h5><ul><li>UV Blocking T-shirts</li><li>Light Sleeping Bag or Hammock</li><li>Sunscreen</li><li>Shorts</li><li>Plenty of Water</li></ul>")
+            }
+                        //clear and windy
+            if (temp[i] > 0 || temp[i] < 30 || wind[i] > 5 || weather === "Clear") {
+                $(".clothingRecommendations").html(
+                    "<h5>Clothing Recommendations</h5><ul><li>Heavy Jacket</li><li>Wind Breaker</li><li>Cold Weather Sleeping Bag</li><li>Wool Socks</li><li>Wool Hat or Earmuffs</li><li>Balaclava</li><li>Space Blanket</li><li>Gloves<li>Sunscreen</li></ul>")
+            }
+            if (temp[i] >= 30 || temp[i] < 60 || wind[i] > 5 || weather === "Clear") {
+                $(".clothingRecommendations").html(
+                    "<h5>Clothing Recommendations</h5><ul><li>Light Jacket</li><li>Wind Breaker</li><li>Cold Weather Sleeping Bag</li><li>Sleeping Socks</li><li>Sunscreen</li><li>Long Sleeve Shirts</li></ul>")
+            }
+            if (temp[i] >= 60 || temp[i] < 85 || wind[i] > 5 || weather === "Clear") {
+                $(".clothingRecommendations").html(
+                    "<h5>Clothing Recommendations</h5><ul><li>Long Sleeve Shirts</li><li>T-shirts</li><li>Sleeping Bag</li><li>Wind Breaker</li><li>Sunscreen</li><li>Shorts or Pants</li></ul>")
+            }
+            if (temp[i] >= 85 || wind[i] > 5 || weather === "Clear") {
+                $(".clothingRecommendations").html(
+                    "<h5>Clothing Recommendations</h5><ul><li>UV Blocking T-shirts</li><li>Light Sleeping Bag or Hammock</li><li>Sunscreen</li><li>Shorts</li><li>Plenty of Water</li></ul>")
+                }
+            //snowy and calm
+            
+            if (temp[i] > 0 || temp[i] < 30 || wind[i] <= 5 || weather === "Snow") {
+                $(".clothingRecommendations").html(
+                    "<h5>Clothing Recommendations</h5><ul><li>Heavy Snow Jacket</li><li>Cold Weather Sleeping Bag</li><li>Groundtarp for Tent</li><li>Wool Socks</li><li>Wool Hat or Earmuffs</li><li>Space Blanket</li><li>Gloves</li><li>Snow Boots</li><li>Sunscreen</li></ul>")
+            }
+            if (temp[i] >= 30 || temp[i] < 60 || wind[i] <= 5 || weather === "Snow") {
+                $(".clothingRecommendations").html(
+                    "<h5>Clothing Recommendations</h5><ul><li>Light Snow Jacket</li><li>Cold Weather Sleeping Bag</li><li>Sleeping Socks</li><li>Groundtarp for Tent</li><li>Long Sleeve Shirts</li><li>Snow Boots</li></ul>")
+            }
+           
         }
 
     }
