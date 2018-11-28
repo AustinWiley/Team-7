@@ -40,7 +40,7 @@ $(document).ready(function () {
                 newOption.text(response.data[j].name);
                 $(".info").append(newOption);
             } else {
-                console.log(parkLocationStr)
+                
                 var newOption = $("<option>");
                 var newOption = $("<option>").attr("data-location", parkLocationStr);
                 newOption.attr("data-locationValue", false);
@@ -56,8 +56,8 @@ $(document).ready(function () {
     
         var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         var dayNum = new Date(timeStamp * 1000).getDay();
-        var result = days[dayNum];;
-        return result
+        var result = days[dayNum];
+        return result;
     }
 
 
@@ -100,8 +100,6 @@ $(document).ready(function () {
 
 
     function forecastAjax(location) {
-
-        console.log(location)
 
         var url = "https://api.openweathermap.org/data/2.5/forecast?"
         var queryParams = {
@@ -175,10 +173,9 @@ $(document).ready(function () {
 
 
     $("#submit-btn").on("click", function (event) {
+
         event.preventDefault();
-
         $(".forecast-view").empty();
-
         parksAjax()
     })
 
@@ -188,28 +185,22 @@ $(document).ready(function () {
         // this could be its own function
         var locationStr = $(this).attr("data-location");
         var locationValue = $(this).attr("data-locationValue")
-        console.log(locationStr)
-        console.log(locationValue)
-
         var cleanLatLong = locationStr.slice(1, -1).split(',');
-        console.log(cleanLatLong)
-
 
         if (locationValue === "true") {
+
             var latitude = cleanLatLong[0].substr(4);
             var longitude = cleanLatLong[1].substr(5);
-            console.log("truthiness")
         } else if (locationValue === "false") {
+
             var latitude = cleanLatLong[0].substr(3);
             var longitude = cleanLatLong[1].substr(6);
-            console.log("falsyness")
         }
 
         var location = {
             lat: latitude,
             long: longitude
         }
-        console.log(location)
         forecastAjax(location)
     })
 
