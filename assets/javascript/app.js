@@ -23,9 +23,13 @@ $(document).ready(function () {
 
     function getCampsites(response, parkLocationStr) {
 
-        var parkSelection = $("#name").val();
-        $("#park-selected").text("Campsites in " + parkSelection + " National Park");
         $(".info").empty();
+        var parkSelection = $("#name").val();
+        firstLetter = parkSelection.charAt(0).toUpperCase();
+        var capParkSelection = firstLetter + parkSelection.slice(1)
+        $(".info").html("<h4>" + "Campsites in " + capParkSelection + " National Park" + "</h4>");
+        
+       
         for (var j = 0; response.data.length - 1; j++) {
 
             console.log(response.data[j].latLong)
@@ -35,6 +39,8 @@ $(document).ready(function () {
 
                 var newOption = $("<option>");
                 var newOption = $("<option>").attr("data-location", locationStr);
+                newOption.attr("data-description", response.data[j].description);
+                newOption.attr("data-name", response.data[j].name);
                 newOption.attr("data-locationValue", true);
                 newOption.attr("class", "campsites");
                 newOption.text(response.data[j].name);
@@ -43,6 +49,8 @@ $(document).ready(function () {
                 
                 var newOption = $("<option>");
                 var newOption = $("<option>").attr("data-location", parkLocationStr);
+                newOption.attr("data-description", response.data[j].description);
+                newOption.attr("data-name", response.data[j].name);
                 newOption.attr("data-locationValue", false);
                 newOption.attr("class", "campsites");
                 newOption.text(response.data[j].name);
@@ -60,6 +68,12 @@ $(document).ready(function () {
         return result;
     }
 
+
+    function  renderDescription(description, siteName) {
+
+        $(".camp-name").text(siteName);
+        $(".camp-descript").text(description);
+    }
 
     function parksAjax() {
 
@@ -133,7 +147,7 @@ $(document).ready(function () {
 
             var newRow = $("<tr>").append(
                 $("<td>").text(weekDay),
-                $("<td>").text(Math.round(days.main.temp) + "F"),
+                $("<td>").text(Math.round(days.main.temp) + "°F"),
                 $("<td>").text(days.weather[0].main),
                 // $("<td>").text(days.weather[0].description),
                 $("<td>").text(days.wind.speed + " mph winds")
@@ -234,6 +248,24 @@ $(document).ready(function () {
     }
 
 
+    function renderMap(lat, long) {
+
+        $(".map-container").empty();
+
+        var newMap = $("<div>").attr("id", "mapid");
+        $(".map-container").append(newMap);
+        
+        var mymap = L.map('mapid').setView([lat, long], 15);
+
+        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYXdpbGV5IiwiYSI6ImNqcDBrbXU0eDAwMmkzd21qN2U3ZmFvb2UifQ.pK9CRHLF-HjgBL0Z8Dmr2w', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox.streets',
+            accessToken: 'your.mapbox.access.token'
+        }).addTo(mymap);
+    }
+
+
     $("#submit-btn").on("click", function (event) {
 
         event.preventDefault();
@@ -245,8 +277,10 @@ $(document).ready(function () {
     $(document).on("click", ".campsites", function () {
 
         // this could be its own function
+        var description = $(this).attr("data-description");
+        var siteName = $(this).attr("data-name");
         var locationStr = $(this).attr("data-location");
-        var locationValue = $(this).attr("data-locationValue")
+        var locationValue = $(this).attr("data-locationValue");
         var cleanLatLong = locationStr.slice(1, -1).split(',');
 
         if (locationValue === "true") {
@@ -263,8 +297,13 @@ $(document).ready(function () {
             lat: latitude,
             long: longitude
         }
-        forecastAjax(location)
+        forecastAjax(location);
+        renderDescription(description, siteName);
+        renderMap(location.lat, location.long);
     })
+
+
+    renderMap("44.4605", "-110.8281")
 
 });
 

@@ -11,7 +11,13 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
         crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
-     <link rel="stylesheet" href="assets/css/hover.css">
+    <link rel="stylesheet" href="assets/css/hover.css">
+    <!--leaflet-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+        crossorigin="" />
+    <!--leaflet-->
+    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+        crossorigin=""></script>
 </head>
 
 <body>
@@ -34,7 +40,7 @@
                         <label for="formGroupExampleInput">Camping Name</label>
                         <input type="text" class="form-control" id="name" placeholder="Yellowstone National Park">
                         <button type="button" id="submit-btn" class="btn btn-outline-primary hvr-icon-rotate hvr-shadow">Search
-                           <i class="fas fa-campground"></i> 
+                            <i class="fas fa-campground"></i>
                         </button>
                     </form>
                 </div>
@@ -52,30 +58,34 @@
                 <div class="card text-black">
                     <img class="card-img" src="assets/images/example-img.png" alt="Card image">
                     <div class="info">
-                        <p>Name</p>
-                        <p>Info</p>
+                        <p>Search for a National Park to find a campsite</p>
                     </div>
+                </div>
+                <div class="map-container">
+                    <!-- <div id="mapid"></div> -->
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="forecast">
                     <h3>Forecast</h3>
                     <div class="forecast-view">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Tincidunt id aliquet risus feugiat in ante metus dictum at.
-                        Proin sagittis nisl rhoncus mattis rhoncus. Eget duis at tellus at urna condimentum mattis
-                        pellentesque. Ornare aenean euismod elementum nisi quis eleifend. Posuere lorem ipsum dolor sit
-                        amet. Ipsum dolor sit amet consectetur adipiscing elit duis. Diam quis enim lobortis
-                        scelerisque fermentum dui faucibus in. Tempor commodo ullamcorper a lacus vestibulum sed arcu
-                        non odio. In iaculis nunc sed augue lacus viverra vitae congue eu.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Tincidunt id aliquet risus feugiat in ante metus dictum at.
+                            Proin sagittis nisl rhoncus mattis rhoncus.</p>
                     </div>
+                </div>
+                <div class="campsite">
+                    <h3 class="camp-name">Selected Campsite</h3>
+                    <p class="camp-descript">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                        tempor incididunt ut
+                        labore et dolore magna aliqua. Tincidunt id aliquet risus feugiat in ante metus dictum at.
+                        Proin sagittis nisl rhoncus mattis rhoncus.</p>
                 </div>
             </div>
         </div>
-    </div>
 
     </div>
-        <!-- JAVASCRIPT  -->
+    <!-- JAVASCRIPT  -->
     <!-- ========================================= -->
     <!-- Link to Moment.js -->
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
