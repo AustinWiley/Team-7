@@ -321,9 +321,12 @@ console.log("click")
         console.log(name);
         console.log(comment);
 
+        var newDiv = $("<div></div>")
+        console.log("newdiv created")
+
         // Change the HTML to reflect
-        $("#userName").text(name);
-        $("#userComment").text(comment);
+        $(newDiv).append("<p>" + name + "<br>" + comment + "</p>");
+        $(".comments").append(newDiv)
 
     })
 
