@@ -33,13 +33,13 @@ body {
 }
 
 form,
-.comments, .forecast, .clothingRecommendations, .card, input[placeholder] {
+.comments, .forecast, .campsite, .clothingRecommendations, .map-container, .card, input[placeholder] {
     background: rgba(145, 186, 212, 0.2);
     border: 2px solid rgb(138, 191, 235);
     border-radius: 5px;
 }
 
-form, .info, .forecast, .comments, .clothingRecommendations {
+form, .info, .forecast, .campsite, .comments, .clothingRecommendations, .map-container {
     padding: 10px;
 }
 
@@ -53,7 +53,7 @@ input[placeholder] {
     background: rgb(215, 242, 255);
 }
 
-.comments, .clothingRecommendations {
+.comments, .clothingRecommendations, .campsite, .map-container {
     margin-top: 5px;
 }
 
@@ -84,4 +84,8 @@ input[placeholder] {
   .hvr-icon-rotate:hover .hvr-icon, .hvr-icon-rotate:focus .hvr-icon, .hvr-icon-rotate:active .hvr-icon {
     -webkit-transform: rotate(20deg);
     transform: rotate(20deg);
+  }
+
+  #mapid {
+       height: 225px; 
   }
