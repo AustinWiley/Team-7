@@ -156,6 +156,14 @@ $(document).ready(function () {
     function forecastLoop(response) {
         $(".forecast-view").empty();
 
+        var newTittle = $("<tr>").append(
+            $("<th>").text("Day"),
+            $("<th>").text("Temp"),
+            $("<th>").text("weather"),
+            $("<th>").text("Wind")
+        )
+        $(".forecast-view").append(newTittle);
+
         for (i = 0; i < response.list.length; i = i + 8) {
             console.log(response.list[i]);
             var days = response.list[i];
@@ -166,7 +174,7 @@ $(document).ready(function () {
                 $("<td>").text(Math.round(days.main.temp) + "°F"),
                 $("<td>").text(days.weather[0].main),
                 // $("<td>").text(days.weather[0].description),
-                $("<td>").text(days.wind.speed + " mph winds")
+                $("<td>").text(days.wind.speed)
             )
             $(".forecast-view").append(newRow);
         }
@@ -195,6 +203,7 @@ $(document).ready(function () {
         for (i = 0; i < temp.length; i++) {
             //clear and calm
             if (temp[i] <= 0) {
+                console.log()
                 $(".clothingRecommendations").html(
                     "<h5>Clothing Recommendations</h5><p>Camping not recommended at sub-zero temperatures!</p>")
             }
@@ -288,6 +297,21 @@ $(document).ready(function () {
         $(".forecast-view").empty();
         parksAjax()
     })
+
+
+    // make it so page doesnt reload if you press enter
+    $(document).keypress(function (e) {
+        var key = e.which;
+        if(key == 13)  // the enter key code
+         {
+            event.preventDefault();
+            $(".forecast-view").empty();
+            parksAjax()
+        //    $(document).click();
+           return false;  
+         }
+       }); 
+
 
     $(document).on("click", ".user-feedback", function () {
         event.preventDefault();
