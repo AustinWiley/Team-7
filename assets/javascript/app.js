@@ -249,6 +249,7 @@ $(document).ready(function () {
 
 
     function renderMap(lat, long) {
+        console.log("map running")
 
         $(".map-container").empty();
 
@@ -267,7 +268,7 @@ $(document).ready(function () {
 
 
     $("#submit-btn").on("click", function (event) {
-
+        console.log("click")
         event.preventDefault();
         $(".forecast-view").empty();
         parksAjax()
