@@ -1,12 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=Courgette');
 
-.col-md-2, .col-md-3, .col-md-4, .col-md-6, .col-md-9, .col-md-12 {
+.col-md-2,
+.col-md-3,
+.col-md-4,
+.col-md-6,
+.col-md-9,
+.col-md-12 {
     padding-right: 5px;
     padding-left: 5px;
 }
 
 body {
     font-family: "Courgette";
+    font-size: 18px;
     color: #282828;
     background-image: url("../images/weather.png");
 }
@@ -29,12 +35,11 @@ body {
 .rw-2 {
     padding-top: 20px;
     padding-bottom: 20px;
-    background: url("../images/header.png") no-repeat;
+    background: url("../images/header.png");
 }
 
 .rw-3 {
     background-image: url("../images/Group_4.png");
-    height: 300px;
     color: #f6f5f3;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -57,7 +62,7 @@ body {
 }
 
 .display-4 {
-    font-size: 4em;
+    font-size: 3.7em;
 }
 
 .jumbotron h1 {
@@ -69,16 +74,28 @@ body {
 }
 
 form,
-
-.comments p, .forecast, .campsite, .clothingRecommendations, .map-container, .card, input[placeholder] {
+.comments p,
+.forecast,
+.campsite,
+.clothingRecommendations,
+.map-container,
+.card,
+input[placeholder] {
 
     background: rgba(145, 186, 212, 0.2);
     border: 2px solid rgb(122, 136, 148);
     border-radius: 5px;
 }
 
-form, .info, .forecast, .campsite, .comments, .clothingRecommendations, .map-container {
+form,
+.info,
+.forecast,
+.campsite,
+.comments,
+.clothingRecommendations,
+.map-container {
     padding: 10px;
+
 }
 
 label {
@@ -87,11 +104,14 @@ label {
 
 input[placeholder] {
     letter-spacing: 2.5px;
-    padding-left: 30px;  
+    padding-left: 30px;
     background: rgb(215, 242, 255);
 }
 
-.comments, .clothingRecommendations, .campsite, .map-container {
+.comments,
+.clothingRecommendations,
+.campsite,
+.map-container {
     margin-top: 5px;
 }
 
@@ -99,9 +119,53 @@ input[placeholder] {
     margin-top: 15px;
 }
 
+#submit-btn:active {
+    box-shadow: 0px 0px 5.85px 0.15px rgba(33, 33, 33, 0.35);
+    position: relative;
+    top: 2px;
+}
+
+.campsites {
+    float: left;
+    margin: 7px;
+    background: rgb(255, 255, 255, 0.9);
+    border-radius: 5px;
+    padding: 3px 10px;
+}
+
+option:hover {
+    outline: 2px dashed #282828;
+    border-radius: 5px;
+
+}
+
+option:active {
+    box-shadow: 0px 0px 5.85px 0.15px rgba(33, 33, 33, 0.35);
+    position: relative;
+    top: 2px;
+}
+
+tr:hover {
+    background: rgb(255, 255, 255, 0.9);
+}
+
+
+.clothingRecommendations ul {
+    font-size: 20px;
+    list-style-image: url("../images/009-sweater-2-icon.png");
+}
+
+.rw-3 h2 {
+    text-align: center;
+}
 
 .comments {
-    display: flex;
+    margin: 0 auto;
+    width: 1060px;
+}
+
+.comments div {
+    float: left;
 }
 
 .comments p {
@@ -125,68 +189,21 @@ input[placeholder="Name"] {
     color: #f6f5f3;
 }
 
-.footer {
-    height: 200px;
-    background-image: url("../images/squ.png");
-    background-position: right;
-}
-/* this is where conflicts began */
-.comments {
-    display: flex;
+
+
+#mapid {
+    height: 225px;
 }
 
-.comments p {
-    margin: 10px;
-    padding: 7px;
-    width: 200px;
-    font-size: 14px;
-}
-
-#userName {
-    font-size: 16px;
-    text-align: center;
-}
-
-input[placeholder="Name"] {
-    width: 200px;
-    margin-right: 10px;
-}
-
-#comment-btn {
-    color: #f6f5f3;
-}
 
 .footer {
-    height: 200px;
-    background-image: url("../images/squ.png");
+    height: 60px;
     background-position: right;
+    background-color: #f6f5f3;
 }
-/* Icon Rotate */
-.hvr-icon-rotate {
-    display: inline-block;
-    vertical-align: middle;
-    -webkit-transform: perspective(1px) translateZ(0);
-    transform: perspective(1px) translateZ(0);
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-    -webkit-transition-duration: 0.3s;
-    transition-duration: 0.3s;
-  }
-  .hvr-icon-rotate .hvr-icon {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-transition-duration: 0.3s;
-    transition-duration: 0.3s;
-    -webkit-transition-property: transform;
-    transition-property: transform;
-    -webkit-transition-timing-function: ease-out;
-    transition-timing-function: ease-out;
-  }
-  .hvr-icon-rotate:hover .hvr-icon, .hvr-icon-rotate:focus .hvr-icon, .hvr-icon-rotate:active .hvr-icon {
-    -webkit-transform: rotate(20deg);
-    transform: rotate(20deg);
-  }
 
-  #mapid {
-       height: 225px; 
-  }
+.footer p {
+    margin: 0 auto;
+    padding: 20px;
+}
 
